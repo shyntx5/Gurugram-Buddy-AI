@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GuruGram Saver AI</title>
+<!-- Google Fonts: headings, body text, and terminal text -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- The 3D scene is drawn on this canvas. It is fixed behind everything (see style.css) -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- SECTION 1: HERO -->
+<section class="hero" id="hero">
+  <div class="pill live"><span class="dot"></span><span id="modelBadge">Powered by Ollama Local LLM</span></div>
+  <h1 class="glow-title">GURUGRAM<br>SAVER AI</h1>
+  <p class="sub">Stop overpaying in Gurgaon. Compare PGs, tiffins, rides and salons in one place.</p>
+  <div class="floaters">
+    <span class="pill glass f1">Zero Brokerage</span>
+    <span class="pill glass f2">Live Ride Math</span>
+    <span class="pill glass f3">Llama 3.2 Local</span>
+  </div>
+  <div class="scroll-hint">Scroll to fly in<span class="arrow"></span></div>
+</section>
+
+<!-- SECTION 2: PROBLEM CARDS (pinned while they fly in) -->
+<section class="problem" id="problem">
+  <h2>The newcomer tax</h2>
+  <div class="problem-cards">
+    <article class="pcard"><h3>Broker vs. Direct PG</h3><p>Brokers take a full month's rent. Direct PGs charge nothing extra.</p></article>
+    <article class="pcard"><h3>Zomato vs. Home Tiffin</h3><p>Daily delivery costs about ₹4,000+ a month. A home tiffin costs far less.</p></article>
+    <article class="pcard"><h3>Cab surge vs. Rapido</h3><p>Peak surge doubles cab fares. A bike ride stays cheap.</p></article>
+  </div>
+</section>
+
+<!-- SECTION 3: COMMAND DECK (inputs) -->
+<section class="deck" id="deck">
+  <h2>Command deck</h2>
+  <div class="panel neon">
+    <label>Sector
+      <select id="sectorSelect">
+        <option value="Sector 55/56">Sector 55 / 56 (Golf Course Ext.)</option>
+        <option value="DLF Phase 3 / Cyber Hub">DLF Phase 3 / U-Block</option>
+        <option value="Sector 14 / Old Gurgaon">Sector 14 (Old Gurgaon Market)</option>
+        <option value="Sohna Road / Sector 48">Sohna Road / Sector 48</option>
+      </select>
+    </label>
+    <label>Monthly budget (₹)
+      <input type="number" id="budgetInput" value="14000" min="6000" max="50000">
+    </label>
+    <label>Commute distance (km)
+      <input type="number" id="commuteInput" value="5" min="1" max="40">
+    </label>
+    <label class="wide">Ask the AI anything
+      <input type="text" id="questionInput" placeholder="e.g. Can I live here on my budget?">
+    </label>
+    <button class="btn" onclick="runComparison(true)">Compare and ask AI</button>
+  </div>
+</section>
+
+<!-- SECTION 4: RESULTS BENTO GRID -->
+<section class="results" id="results">
+  <h2>Your savings map</h2>
+  <div class="bento">
+    <div class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.35" data-tilt-max="12">
+      <div class="layer">Paying guest</div><h3 id="pgName">-</h3><div class="price layer2" id="pgPrice">-</div><p id="pgNote">-</p>
+    </div>
+    <div class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.35" data-tilt-max="12">
+      <div class="layer">Home tiffin</div><h3 id="tiffinName">-</h3><div class="price layer2" id="tiffinPrice">-</div><p id="tiffinNote">-</p>
+    </div>
+    <div class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.35" data-tilt-max="12">
+      <div class="layer">Daily ride</div><h3 id="rideName">-</h3><div class="price layer2" id="ridePrice">-</div><p id="rideNote">-</p>
+    </div>
+    <div class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.35" data-tilt-max="12">
+      <div class="layer">Salon</div><h3 id="salonName">-</h3><div class="price layer2" id="salonPrice">-</div><p id="salonNote">-</p>
+    </div>
+  </div>
+  <div class="budget-wrap">
+    <div class="budget-text"><span id="budgetText">-</span></div>
+    <div class="bar"><div class="fill" id="budgetFill"></div></div>
+  </div>
+</section>
+
+<!-- SECTION 5: AI CONSOLE -->
+<section class="console-sec" id="console">
+  <h2>Local AI console</h2>
+  <div class="terminal neon">
+    <div class="term-head"><span class="pulse" id="neuralDot"></span><span id="aiStatus">Waiting for your question...</span></div>
+    <pre id="aiOutput">Press "Compare and ask AI" to get advice from your local Ollama model.</pre>
+  </div>
+</section>
+
+<!-- Libraries load from CDN. The order matters: GSAP first, then ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
